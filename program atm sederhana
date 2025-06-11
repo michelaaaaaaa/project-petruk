@@ -1,3 +1,77 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+ void tampilkan_stack_queue() {
+        cout << "Tumpukan Penarikan (Stack): ";
+        stack<int> tempStack = penarikanStack;
+        while (!tempStack.empty()) {
+            cout << tempStack.top() << " ";
+            tempStack.pop();
+        }
+        cout << "\nAntrean Setoran (Queue): ";
+        queue<int> tempQueue = setorQueue;
+        while (!tempQueue.empty()) {
+            cout << tempQueue.front() << " ";
+            tempQueue.pop();
+        }
+        cout << endl;
+    }
+};
+
+void menu() {
+    cout << "\n|=========================== |\n";
+    cout << "|    SELAMAT DATANG DI BCA   |\n";
+    cout << "|=========================== |\n";
+    cout << "| 1. Input Data User         |\n";
+    cout << "| 2. Setor Uang              |\n";
+    cout << "| 3. Tarik Uang              |\n";
+    cout << "| 4. Cek Saldo               |\n";
+    cout << "| 5. Lihat Riwayat           |\n";
+    cout << "| 6. Cari Transaksi          |\n";
+    cout << "| 7. Lihat Penarikan/Setoran |\n";
+    cout << "| 8. Keluar                  |\n";
+    cout << "|=========================== |\n";
+}
+
+int main() {
+    Bank* akun = new Bank(); 
+    int pilihan;
+
+    do {
+        menu();
+        cout << "Masukkan pilihan: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+            case 1:
+                akun->data_user();
+                break;
+            case 2:
+                akun->setor();
+                break;
+            case 3:
+                akun->penarikan();
+                break;
+            case 4:
+                akun->tampilkan_saldo();
+                break;
+            case 5:
+                akun->tampilkan_histori();
+                break;
+            case 6:
+                akun->cari_transaksi();
+                break;
+            case 7:
+                akun->tampilkan_stack_queue();
+                break;
+            case 8:
+                cout << "Terima kasih telah menggunakan layanan kami.\n";
+                break;
+            default:
+                cout << "Pilihan tidak tersedia.\n";
+        }
+    } while (pilihan != 8);
+
+    delete akun; // hapus pointer
+    return 0;
+}
