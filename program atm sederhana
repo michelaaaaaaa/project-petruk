@@ -1,6 +1,46 @@
 #include <iostream>
+#include <cstring>
 #include <vector>
+#include <list>
+#include <stack>
+#include <queue>
+#include <fstream>
+#include <algorithm>
+#include <limits>
 using namespace std;
+
+// untuk menyimpan riwayat transaksi
+struct Transaksi {
+    string tipe;
+    int jumlah;
+};
+
+// binary search transaksi bdsrkan jmlh
+int binarySearch(vector<Transaksi>& data, int kiri, int kanan, int target) {
+    if (kanan >= kiri) {
+        int tengah = kiri + (kanan - kiri) / 2;
+        if (data[tengah].jumlah == target)
+            return tengah;
+        if (data[tengah].jumlah > target)
+            return binarySearch(data, kiri, tengah - 1, target);
+        return binarySearch(data, tengah + 1, kanan, target);
+    }
+    return -1;
+}
+
+class Bank {
+private:
+    string nama;
+    int nomor_rekening;
+    char jenis[10]; // cstring
+    int saldo;
+    vector<Transaksi> histori;
+    stack<int> penarikanStack;
+    queue<int> setorQueue;
+
+
+
+}
  void tampilkan_stack_queue() {
         cout << "Tumpukan Penarikan (Stack): ";
         stack<int> tempStack = penarikanStack;
