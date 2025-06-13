@@ -32,11 +32,41 @@ class Bank {
 private:
     string nama;
     int nomor_rekening;
-    char jenis[10]; // cstring
+    char jenis[10];
     int saldo;
     vector<Transaksi> histori;
     stack<int> penarikanStack;
     queue<int> setorQueue;
+
+public:
+    Bank() : saldo(0) {}
+
+   void data_user() {
+    cout << "Masukkan Nama Anda: ";
+    cin.ignore();
+    getline(cin, nama);
+
+    cout << "Masukkan Nomor Rekening: ";
+    cin >> nomor_rekening;
+    
+    if (cin.fail()) {
+        cin.clear(); // reset error flag
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // buang input salah
+        cout << "\nNomor rekening anda tidak valid! Kembali ke menu utama...\n";
+        return;
+    }
+
+    cout << "Masukkan Jenis Rekening (max 9 karakter): ";
+    cin >> jenis;
+    cout << "Masukkan Saldo Awal: ";
+    cin >> saldo;
+
+    ofstream file("data_nasabah.txt");
+    file << nama << endl << nomor_rekening << endl << jenis << endl << saldo;
+    file.close();
+
+    cout << "\nData Berhasil Disimpan ke file.\n";
+}
 
 
 
