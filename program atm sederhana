@@ -68,7 +68,60 @@ public:
     cout << "\nData Berhasil Disimpan ke file.\n";
 }
 
+  void setor() {
+        int jumlah;
+        cout << "Masukkan Jumlah Setoran: ";
+        cin >> jumlah;
+        saldo += jumlah;
+        histori.push_back({"Setor", jumlah});
+        setorQueue.push(jumlah);
+        cout << "Setoran berhasil!\n";
+    }
 
+    void penarikan() {
+        int jumlah;
+        cout << "Masukkan Jumlah Penarikan: ";
+        cin >> jumlah;
+        if (jumlah > saldo) {
+            cout << "Saldo tidak mencukupi!\n";
+        } else {
+            saldo -= jumlah;
+            histori.push_back({"Tarik", jumlah});
+            penarikanStack.push(jumlah);
+            cout << "Penarikan berhasil!\n";
+        }
+    }
+
+    void tampilkan_saldo() {
+        cout << "Saldo Anda: Rp. " << saldo << endl;
+    }
+
+    void tampilkan_histori() {
+        cout << "Riwayat Transaksi:\n";
+        for (auto& t : histori) {
+            cout << t.tipe << ": Rp. " << t.jumlah << endl;
+        }
+    }
+
+    void cari_transaksi() {
+        if (histori.empty()) {
+            cout << "Belum ada transaksi.\n";
+            return;
+        }
+        sort(histori.begin(), histori.end(), [](Transaksi a, Transaksi b) {
+            return a.jumlah < b.jumlah;
+        });
+
+        int target;
+        cout << "Cari jumlah transaksi: ";
+        cin >> target;
+        int index = binarySearch(histori, 0, histori.size() - 1, target);
+        if (index != -1) {
+            cout << "Transaksi ditemukan: " << histori[index].tipe << " Rp. " << histori[index].jumlah << endl;
+        } else {
+            cout << "Transaksi tidak ditemukan.\n";
+        }
+    }
 
 }
  void tampilkan_stack_queue() {
